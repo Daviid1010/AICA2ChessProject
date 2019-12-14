@@ -175,6 +175,34 @@ private Stack getWhitePawnSquares(int x, int y, String piece){
   return attackingMove;
 }
 
+//function which returns a Stack of all attacking Moves of a Black Pawn, has to essentially check the reverse of White as it they attack in opposite direction
+private Stack getBlackPawnSquares(int x, int y, String piece) {
+  Square startingSquare = new Square(x,y,piece);
+  Stack moves = new Stack();
+  Stack attackingMove = new Stack();
+
+  Square s = new Square(x,y-2,piece);
+  moves.push(s);
+  Square s1 = new Square(x,y-1,piece);
+  moves.push(s1);
+
+  for (int i=0;i < 2 ;i++ ) {
+    Square tmp = (Square)moves.pop();
+    Move tmpmove = new Move(startingSquare,tmp);
+    if ((tmp.getXC()<0)||(tmp.getXC() > 7)||(tmp.getYC() < 0)||(tmp.getYC() >7)) {
+      if (piece.contains("White")) {
+        if (checkWhiteOponent(((tmp.getXC()*75)+20), ((tmp.getYC()*75)+20))) {
+          attackingMove.push(tmpmove);
+        }
+      }
+    }
+    else {
+      attackingMove.push(tmpmove);
+    }
+  }
+  return attackingMove;
+}
+
 
 
 /*
@@ -798,9 +826,9 @@ private void getLandingSquares(Stack found){
     return squares;
 
   }
-
+//finds all squares with black pieces on the board
   private Stack findBlackPieces() {
-    Stack squares = new Stack;
+    Stack squares = new Stack();
     String icon, pieceName;
     int x,y;
 
@@ -815,7 +843,7 @@ private void getLandingSquares(Stack found){
           pieceName = icon.substring(0, (icon.length()-4));
           if (pieceName.contains("Black")) {
             Square stmp = new Square(x,y,pieceName);
-            squares.push(tmp);
+            squares.push(stmp);
           }
         }
       }
@@ -885,7 +913,10 @@ private void printStack(Stack input){
     layeredPane.validate();
     layeredPane.repaint();
     Stack white = findWhitePieces();
+    Stack black = findBlackPieces();
+    Stack blackCompleteMoves =  new Stack();
     Stack completeMoves = new Stack();
+    Stack blackTemporary = new Stack();
     Move tmp;
     while(!white.empty()){
       Square s = (Square)white.pop();
@@ -922,8 +953,48 @@ private void printStack(Stack input){
     temporary = (Stack)completeMoves.clone();
     getLandingSquares(temporary);
     printStack(temporary);
+
+
+/*
+    while(!black.empty()) {
+      Square blackS = (Square)black.pop();
+      String blackTmpString = blackS.getName();
+      Stack blackTmpMoves = new Stack();
+
+
+      if (blackTmpString.contains("Knight")) {
+        blackTmpMoves = getKnightMoves(blackS.getXC(), blackS.getYC(), blackS.getName());
+      }
+      else if (blackTmpString.contains("Bishup")) {
+        blackTmpMoves = getBishopMoves(blackS.getXC(), blackS.getYC(), blackS.getName());
+      }
+      else if(blackTmpString.contains("Pawn")) {
+        blackTmpMoves = getRookMoves(blackS.getXC(),blackS.getYC(),blackS.getName());
+      }
+      else if (blackTmpString.contains("Rook")) {
+        blackTmpMoves = getRookMoves(blackS.getXC(), blackS.getYC(), blackS.getName());
+      }
+      else if (blackTmpString.contains("Queen")) {
+        blackTmpMoves = getQueenMoves(blackS.getXC(), blackS.getYC(), blackS.getName());
+      }
+      else if (blackTmpString.contains("King")) {
+        blackTmpMoves = getKnightMoves(blackS.getXC(), blackS.getYC(), blackS.getName());
+      }
+
+      while(!blackTmpMoves.empty()) {
+        tmp = (Move)blackTmpMoves.pop();
+        blackCompleteMoves.push(tmp);
+      }
+    }
+    blackTemporary = (Stack)blackCompleteMoves.clone();
+    getLandingSquares(blackTemporary);
+    printStack(blackTemporary);
+
+*/
+
 /*
   So now we should have a copy of all the possible moves to make in our Stack called completeMoves
+  We should also hvae a copy of all the possible black moves to make in the Stack blackCompleteMoves
 */
   if(completeMoves.size() == 0){
 /*

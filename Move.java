@@ -25,7 +25,7 @@ Create evaluation function here for checking value of the move, gives each piece
 public int getMoveValue() {
   int moveValue=0;
 
-String landingPiece = getLanding.getName();
+String landingPiece = this.getLanding().getName();
 
 if (landingPiece.contains("Pawn")) {
     moveValue = 1;
@@ -40,7 +40,7 @@ else if(landingPiece.contains("Queen")) {
   moveValue = 9;
 }
 else if (landingPiece.contains("King")) {
-  moveValue = Integer.POSITIVE_INFINITY;
+  moveValue = 1000000;
 }
 else {
   moveValue=0;
