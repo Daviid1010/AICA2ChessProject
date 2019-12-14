@@ -39,6 +39,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
     AIAgent agent;
     Boolean agentwins;
     Stack temporary;
+    Stack blackTemporary;
 
 
     public ChessProject(){
@@ -134,6 +135,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
       agent = new AIAgent();
       agentwins = false;
       temporary = new Stack();
+      blackTemporary = new Stack();
     }
 
 /*
@@ -154,6 +156,8 @@ private Stack getWhitePawnSquares(int x, int y, String piece){
     Square s1 = new Square(x,y+1,piece);
     moves.push(s1);
 
+//need to have another condiion saying if startingSquare is at row 1, then two moves ok, else only one move is ok
+//also need a condiion within both which says that sqaure one square up, one left or right is ok if black piece is there
   for(int i=0;i < 2;i++){
     Square tmp = (Square)moves.pop();
     Move tmpmove = new Move(startingSquare, tmp);
@@ -916,7 +920,7 @@ private void printStack(Stack input){
     Stack black = findBlackPieces();
     Stack blackCompleteMoves =  new Stack();
     Stack completeMoves = new Stack();
-    Stack blackTemporary = new Stack();
+
     Move tmp;
     while(!white.empty()){
       Square s = (Square)white.pop();
@@ -960,6 +964,7 @@ private void printStack(Stack input){
       Square blackS = (Square)black.pop();
       String blackTmpString = blackS.getName();
       Stack blackTmpMoves = new Stack();
+      //Stack blackTemporary = new Stack();
 
 
       if (blackTmpString.contains("Knight")) {
@@ -986,9 +991,9 @@ private void printStack(Stack input){
         blackCompleteMoves.push(tmp);
       }
     }
-    blackTemporary = (Stack)blackCompleteMoves.clone();
-    getLandingSquares(blackTemporary);
-    printStack(blackTemporary);
+    //blackTemporary = (Stack)blackCompleteMoves.clone();
+    //getLandingSquares(black);
+    //printStack(blackTemporary);
 
 
 
