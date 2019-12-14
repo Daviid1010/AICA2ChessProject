@@ -24,12 +24,12 @@ public class AIAgent{
     return selectedMove;
   }
 
-  public Move nextBestMove(Stack possibilities){
+  public Move nextBestMove(Stack possibilities, Stack blackPossibles){
     Move selectedMove = new Move();
     return selectedMove;
   }
 
-  public Move twoLevelsDeep(Stack possibilities){
+  public Move twoLevelsDeep(Stack possibilities, Stack blackPossibles){
     Move selectedMove = new Move();
     return selectedMove;
   }

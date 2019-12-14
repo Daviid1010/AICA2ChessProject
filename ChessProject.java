@@ -162,7 +162,7 @@ private Stack getWhitePawnSquares(int x, int y, String piece){
     }
     else if(piecePresent(((tmp.getXC()*75)+20), (((tmp.getYC()*75)+20)))){ //if piece is present
       if(piece.contains("White")){
-        if(checkWhiteOponent(((tmp.getXC()*75)+20), ((tmp.getYC()*75)+20))){
+        if(checkWhiteOponent(((tmp.getXC()*75)+20), ((tmp.getYC()*75)+20))){ //if white opponent
           attackingMove.push(tmpmove);
         }
       }
@@ -955,7 +955,7 @@ private void printStack(Stack input){
     printStack(temporary);
 
 
-/*
+
     while(!black.empty()) {
       Square blackS = (Square)black.pop();
       String blackTmpString = blackS.getName();
@@ -990,7 +990,7 @@ private void printStack(Stack input){
     getLandingSquares(blackTemporary);
     printStack(blackTemporary);
 
-*/
+
 
 /*
   So now we should have a copy of all the possible moves to make in our Stack called completeMoves
@@ -1022,7 +1022,26 @@ private void printStack(Stack input){
         testing.push(tmpMove);
       }
        System.out.println("=============================================================");
+       Stack blackPossibles = new Stack();
+       while(!blackCompleteMoves.empty()) {
+         Move blackTmpMove =(Move)blackCompleteMoves.pop();
+         Square blackS1 = (Square)blackTmpMove.getStart();
+         Square blackS2 = (Square)blackTmpMove.getLanding();
+         System.out.println("The "+blackS1.getName()+" can move from ("+blackS1.getXC()+", "+blackS1.getYC()+") to the following square: ("+blackS2.getXC()+", "+blackS2.getYC()+")");
+         blackPossibles.push(blackTmpMove);
+       }
+       System.out.println("=============================================================");
        Border redBorder = BorderFactory.createLineBorder(Color.RED, 3);
+       /*
+       if (n=0) {
+         Move selectedMove = agent.randomMove(testing);
+       }
+       else if (n=1) {
+         Move selectedMove = agent.nextBestMove(testing, blackPossibles);
+       }
+       else if (n=2) {
+         Move selectedMove = agent.twoLevelsDeep(testing,blackPossibles);
+       }*/
        Move selectedMove = agent.randomMove(testing);
        Square startingPoint = (Square)selectedMove.getStart();
        Square landingPoint = (Square)selectedMove.getLanding();
