@@ -799,6 +799,31 @@ private void getLandingSquares(Stack found){
 
   }
 
+  private Stack findBlackPieces() {
+    Stack squares = new Stack;
+    String icon, pieceName;
+    int x,y;
+
+    for (int i=0; i<600;i+=75 ) {
+      for (int j=0; j <600;j+=75 ) {
+        y= i/75;
+        x=j/75;
+        Component tmp = chessBoard.findComponentAt(j,i);
+        if (tmp instanceof JLabel) {
+          chessPiece = (JLabel)tmp;
+          icon = chessPiece.getIcon().toString();
+          pieceName = icon.substring(0, (icon.length()-4));
+          if (pieceName.contains("Black")) {
+            Square stmp = new Square(x,y,pieceName);
+            squares.push(tmp);
+          }
+        }
+      }
+    }
+
+    return squares;
+  }
+
 	/*
 		This method checks if there is a piece present on a particular square.
 	*/
