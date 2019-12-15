@@ -1023,7 +1023,7 @@ private void printStack(Stack input){
         Move tmpMove = (Move)completeMoves.pop();
         Square s1 = (Square)tmpMove.getStart();
         Square s2 = (Square)tmpMove.getLanding();
-        System.out.println("The "+s1.getName()+" can move from ("+s1.getXC()+", "+s1.getYC()+") to the following square: ("+s2.getXC()+", "+s2.getYC()+")");
+        System.out.println("The "+s1.getName()+" can move from ("+s1.getXC()+", "+s1.getYC()+") to the following square: ("+s2.getXC()+", "+s2.getYC()+")"+"  and the value of move is "+tmpMove.getMoveValue());
         testing.push(tmpMove);
       }
        System.out.println("=============================================================");
